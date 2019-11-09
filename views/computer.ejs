@@ -1,3 +1,19 @@
-
+<% include common/header.ejs %>
     computer
+    <div class="content">
+        <h1 class="title">305호 실습실 / 컴퓨터 35</h1>
+        <button class="button">제보하기</button>
+        <% for(let i=0; i<5; i++) { %>
+            <h3>Visual Studio 2015 실행이 안돼요ㅜㅜ(제목)</h3>
+            <p>작성자 이름</p>
+            <p>실행하면 블루스크린 뜹니다ㅜㅜ(내용)</p>
+            <span class="tag is-danger">실행 오류</span>
+            <% for(let tag=0; tag<3; tag++) {%>
+                <span class="tag is-light">#윈도우..</span>
+            <% } %>
+            <p>작성 날짜</p>
+        <% } %>
+    </div>
+
+<% include common/footer.ejs %>
 
