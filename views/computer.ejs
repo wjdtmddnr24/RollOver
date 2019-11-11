@@ -1,31 +1,54 @@
 <% include common/header.ejs %>
-    <div class="content">
-        <div>
-            <h1 class="title">305호 실습실 / 컴퓨터 35</h1>
-            <button class="button">제보하기</button>
-        </div>
-        <div>
-            <% for(let i=0; i<5; i++) { %>
-                <div class="columns">
-                    <div class="column">
-                        <div class="columns">
-                            <h3 class="column">Visual Studio 2015 실행이 안돼요ㅜㅜ(제목)</h3>
-                            <span class="tag is-danger">실행 오류</span>
-                        </div>
+<br>
+<br>
+<br>
+<br>
 
-                        <p>실행하면 블루스크린 뜹니다ㅜㅜ(내용)</p>
-                        <% for(let tag=0; tag<3; tag++) { %>
-                            <span class="tag is-light">#윈도우..</span>
-                        <% } %>
-                    </div>
-                    <div class="column">
-                        <p>작성자 이름</p>
-                        <p>작성 날짜</p>
-                    </div>
-                </div>
-            <% } %>
+    <div class="container content">
+        <div class="level">
+            <div class="level-left">
+                <h1 class="level-item title is-1"><span>305호 실습실</span>/<span>컴퓨터 35</span></h1>
+            </div>
+            <div class="level-right">
+                <button class="level-item button">제보하기</button>
+            </div>
         </div>
+        <br><br>
+        <% for(let i=0; i<5; i++) { %>
+
+        <div class="level">
+            <div class="level-left">
+                <h3 class="level-item title is-3" id="title">Visual Studio 2015 실행이 안돼요ㅜㅜ(제목)</h3>
+                <span class="level-item tag is-danger title is-5" id="computer_status">실행 오류</span>
+            </div>
+            <div class="level-right" id="person">
+                <span class="subtitle is-5">wjdtmddnr24</span>
+            </div>
+        </div>
+            <div class="subtitle is-4" id="contents">
+                <p>실행하면 블루스크린 뜹니다ㅜㅜ(내용) 빨리 좀 고쳐달라...</p>
+            </div>
+            <br></br>
+        <div class="level">
+            <div class="level-left">
+                <% for(let tag=0; tag<3; tag++) { %>
+                    <div class="level-item tag is-light subtitle is-5">#윈도우..</div>
+                <% } %>
+            </div>
+            <div class="level-right" id="time">
+                <span class="level-item subtitle is-6">2일전 제보</span>
+            </div>
+        </div>
+            <br><br>
+        <% } %>
+
     </div>
 
+<br>
+<br>
+<br>
+<br>
 <% include common/footer.ejs %>
+
+
 
