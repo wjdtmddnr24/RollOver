@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page : 실습실 목록 */
 router.get('/', function (req, res, next) {
-    res.render('index');
+    res.render('root');
 });
 
 /* POST 실습실 추가 */
