@@ -16,8 +16,18 @@ router.get('/:laboratory/', function (req, res) {
     res.render('laboratory');
 });
 
+/* POST 실습실 컴퓨터 추가 */
+router.post('/:laboratory/', function (req, res) {
+    res.render('laboratory');
+});
+
 /* GET 실습실 컴퓨터 한 대 제보 */
 router.get('/:laboratory/:computer', function (req, res) {
+    res.render('computer');
+});
+
+/* POST 실습실 컴퓨터 한 대 제보 추가 */
+router.post('/:laboratory/:computer', function (req, res) {
     res.render('computer');
 });
 
