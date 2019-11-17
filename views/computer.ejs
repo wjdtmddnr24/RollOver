@@ -2,20 +2,23 @@
 <br>
 <br>
 <br>
-<div class="columns">
-    <div class="column is-one-quarter menu">
-        <p class="menu-label">
-            Computer
-        </p>
-        <ul class="container menu-list">
-            <% for(let i=0;i<40;i++) {%>
-                <li><a>컴퓨터 <%= i %></a></li>
-            <% }%>
-        </ul>
-    </div>
+<div class="columns is-mobile">
+    <aside class="columns is-mobile container column menu">
+        <div class="column"></div>
+        <div class="column is-three-fifths">
+            <p class="subtitle is-4">
+                Computer
+            </p>
+            <ul class="menu-list">
+                <% for(let i=0;i<40;i++) {%>
+                    <li><a>컴퓨터 <%= i %></a></li>
+                <% }%>
+            </ul>
+        </div>
+    </aside>
 
 
-    <div class="column is-three-quarters">
+    <div class="column is-three-fifths">
         <div class="container ">
             <div class="level">
                 <div class="level-left">
@@ -58,7 +61,7 @@
 
         </div>
     </div>
-    <div class="column is-4 is-offset-8"></div>
+    <div class="column"></div>
 </div>
 <br>
 <br>
