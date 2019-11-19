@@ -2,66 +2,71 @@
 <br>
 <br>
 <br>
-<div class="columns is-mobile">
-    <aside class="columns is-mobile container column menu">
-        <div class="column"></div>
-        <div class="column is-three-fifths">
-            <p class="subtitle is-4">
-                Computer
-            </p>
-            <ul class="menu-list">
-                <% for(let i=0;i<40;i++) {%>
-                    <li><a>컴퓨터 <%= i %></a></li>
-                <% }%>
-            </ul>
-        </div>
-    </aside>
-
-
-    <div class="column is-three-fifths"  style="margin-left: 150px">
-        <div class="container ">
-            <div class="level">
-                <div class="level-left">
-                    <h1 class="level-item title is-2"><span>305호 실습실</span>/<span>컴퓨터 35</span></h1>
-                </div>
-                <div class="level-right">
-                    <button class="level-item button is-info" id="report-computer">제보하기</button>
-                </div>
+<div class="container">
+    <div class="columns  ">
+        <aside class=" is-one-third column menu">
+            <div class=" ">
+                <p class="subtitle is-4">
+                    Computer
+                </p>
+                <ul class="menu-list">
+                    <% for(let i = 0;i < 40;i++) { %>
+                        <li><a class="subtitle is-6">컴퓨터 <%= i %></a></li>
+                    <% } %>
+                </ul>
             </div>
-            <br><br>
-            <% for(let i = 0; i < 5; i++) { %>
-                <div class="level" style="margin-bottom: 14px;">
-                    <div class="level-left">
-                        <div class="level-item ">
-                            <span class=" tag is-danger title is-6" id="computer_status">실행 오류</span>
-                            <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;">Visual Studio 2015 실행이 안돼요ㅜㅜ</h3>
-                        </div>
-                    </div>
-                    <div class="level-right" id="person">
-                        <span class="subtitle is-6">wjdtmddnr24</span>
-                    </div>
-                </div>
-                <div class="subtitle is-6" id="contents">
-                    <p>실행하면 블루스크린 뜹니다ㅜㅜ(내용) 빨리 좀 고쳐달라...</p>
-                </div>
+        </aside>
+
+
+        <div class="column ">
+            <div class="container ">
                 <div class="level">
                     <div class="level-left">
-                        <div>
-                            <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#고컴수</div>
-                            <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#윈도우 프로그래밍</div>
-                            <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#Visual Studio 2015</div>
-                        </div>
+                        <h1 class="level-item title is-2"><span>305호 실습실</span>/<span>컴퓨터 35</span></h1>
                     </div>
-                    <div class="level-right" id="time">
-                        <span class="level-item subtitle is-6">2일전 제보</span>
+                    <div class="level-right">
+                        <button class="level-item button is-info" id="report-computer">제보하기</button>
                     </div>
                 </div>
-                <hr><br>
-            <% } %>
+                <br><br>
+                <% for(let i = 0; i < 5; i++) { %>
+                    <div class="level" style="margin-bottom: 14px;">
+                        <div class="level-left">
+                            <div class="level-item ">
+                                <span class=" tag is-danger title is-6" id="computer_status">실행 오류</span>
+                                <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;">Visual Studio 2015 실행이
+                                    안돼요ㅜㅜ</h3>
+                            </div>
+                        </div>
+                        <div class="level-right" id="person">
+                            <span class="subtitle is-6">wjdtmddnr24</span>
+                        </div>
+                    </div>
+                    <div class="subtitle is-6" id="contents">
+                        <p>실행하면 블루스크린 뜹니다ㅜㅜ(내용) 빨리 좀 고쳐달라...</p>
+                    </div>
+                    <div class="level">
+                        <div class="level-left">
+                            <div>
+                                <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#고컴수</div>
+                                <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#윈도우 프로그래밍
+                                </div>
+                                <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#Visual
+                                    Studio 2015
+                                </div>
+                            </div>
+                        </div>
+                        <div class="level-right" id="time">
+                            <span class="level-item subtitle is-6">2일전 제보</span>
+                        </div>
+                    </div>
+                    <hr><br>
+                <% } %>
 
+            </div>
         </div>
+        <div class="column"></div>
     </div>
-    <div class="column"></div>
 </div>
 <br>
 <br>
