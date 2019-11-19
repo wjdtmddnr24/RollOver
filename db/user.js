@@ -9,5 +9,9 @@ var userSchema = new Schema({
     created:{type:Date, default:Date.now}
 });
 
+userSchema.methods.validPassword = function(password) {
+    return true;
+};
+
 module.exports = mongoose.model('user', userSchema);
 
