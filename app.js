@@ -23,8 +23,9 @@ db.once('open', function () {
     console.log("Connected to mongod server");
 });
 
-mongoose.connect('mongodb://localhost/mongodb_tutorial');
+require('dotenv').config();
 
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
 
 var app = express();
 
