@@ -81,4 +81,29 @@ router.post('/:laboratory/:computer', function (req, res) {
     res.render('computer');
 });
 
+/* POST 실습실 컴퓨터 한 대 제보에 댓글 추가 */
+router.post('/:laboratory/:computer/:report', function (req, res) {
+    //laboratory, computer, report id에 해당하는 것을 찾고 comments 추가
+    laboratory.findOne({_id: req.params.laboratory}, function(err, lab){
+        for(var i=0, com; com=lab.computer[i]; i++){
+            if(com._id===req.params.computer){
+                for(var j=0, report; report=com.reports[j]; j++){
+                    if(report._id===req.params.report){
+                        report.comments.push({
+                            author: req.body.author,
+                            title: req.body.title,
+                            content: req.body.content
+                        });
+                        break;
+                    }
+                }
+            }
+        }
+        lab.save(function(err, lab) {
+            console.log('Sucessfully insert comment');
+        });
+    })
+    res.render('report');
+});
+
 module.exports = router;
