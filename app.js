@@ -65,18 +65,19 @@ passport.use(new LocalStrategy(
       passwordField: 'password'
     },
     function (id, password, done) {
-      User.findOne({id: id}, function (err, user) {
-        if (err) {
-          return done(err);
-        }
-        if (!user) {
-          return done(null, false, {message: 'Incorrect username.'});
-        }
-        if (!user.validPassword(password)) {
-          return done(null, false, {message: 'Incorrect password'});
-        }
-        return done(null, user);
-      })
+        var hashPassword=user.hashedPassword(password);
+        User.findOne({id: id}, function (err, user) {
+            if (err) {
+              return done(err);
+            }
+            if (!user) {
+              return done(null, false, {message: 'Incorrect username.'});
+            }
+            if (!user.validPassword(hashPassword)) {
+              return done(null, false, {message: 'Incorrect password'});
+            }
+            return done(null, user);
+        })
     }
 ));
 

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var crypto = require('crypto');
 
 var userSchema = new Schema({
     id:{type:String, required:true},
@@ -11,6 +12,10 @@ var userSchema = new Schema({
 
 userSchema.methods.validPassword = function(password) {
     return true;
+};
+
+userSchema.methods.hashedPassword = function(password) {
+    return crypto.createHash("sha256").update(password).digest("hex");
 };
 
 module.exports = mongoose.model('user', userSchema);

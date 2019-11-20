@@ -23,7 +23,7 @@ router.post('/', function(req, res,done) {
         }
         var newUser = new User({
             id: id,
-            password: password,
+            password: user.hashedPassword(password),
             email: email,
             name: name
         });
