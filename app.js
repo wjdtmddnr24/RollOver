@@ -61,27 +61,23 @@ passport.deserializeUser(function (id, done) {
 
 passport.use(new LocalStrategy(
     {
-      usernameField: 'id',
-      passwordField: 'password'
+        usernameField: 'id',
+        passwordField: 'password'
     },
     function (id, password, done) {
-        var hashPassword=user.hashedPassword(password);
+        var hashPassword = user.hashedPassword(password);
         User.findOne({id: id}, function (err, user) {
             if (err) {
-              return done(err);
+                return done(err);
             }
-            if (!user) {
-              return done(null, false, {message: 'Incorrect username.'});
-            }
-            if (!user.validPassword(hashPassword)) {
-              return done(null, false, {message: 'Incorrect password'});
+            if (!user || !user.validPassword(hashPassword)) {
+                return done(null, false, {message: 'Incorrect!'});
             }
             return done(null, user);
         })
     }
 ));
 
-//////////////////////
 
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);

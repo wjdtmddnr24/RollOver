@@ -15,11 +15,11 @@ router.get('/', function (req, res, next) {
 router.post("/", function (req, res) {
     var newLab = new laboratory({
         name: req.body.name,
-        location: req.body.location ,
+        location: req.body.location,
         img_url: req.body.img_url
     });
-    newLab.save(function(err, lab) {
-        console.log('Sucessfully insert laboratory: '+ lab.name);
+    newLab.save(function (err, lab) {
+        console.log('Sucessfully insert laboratory: ' + lab.name);
     });
     res.render('index');
 });
@@ -36,13 +36,13 @@ router.get('/:laboratory/', function (req, res, next) {
 /* POST 실습실 컴퓨터 추가 */
 router.post('/:laboratory/', function (req, res) {
     //laboratory id에 해당하는 것을 찾고 computer 추가
-    laboratory.findOne({_id: req.params.laboratory}, function(err, lab){
+    laboratory.findOne({_id: req.params.laboratory}, function (err, lab) {
         lab.computer.push({
             name: req.body.name,
             location: req.body.location,
             property: req.body.property,
         })
-        lab.save(function(err, lab) {
+        lab.save(function (err, lab) {
             console.log('Sucessfully insert computer');
         });
     });
@@ -61,9 +61,9 @@ router.get('/:laboratory/:computer', function (req, res, next) {
 /* POST 실습실 컴퓨터 한 대 제보 추가 */
 router.post('/:laboratory/:computer', function (req, res) {
     //laboratory, computer id에 해당하는 것을 찾고 reports 추가
-    laboratory.findOne({_id: req.params.laboratory}, function(err, lab){
-        for(var i=0, com; com=lab.computer[i]; i++){
-            if(com._id===req.params.computer){
+    laboratory.findOne({_id: req.params.laboratory}, function (err, lab) {
+        for (var i = 0, com; com = lab.computer[i]; i++) {
+            if (com._id === req.params.computer) {
                 com.reports.push({
                     title: req.body.title,
                     content: req.body.content,
@@ -74,7 +74,7 @@ router.post('/:laboratory/:computer', function (req, res) {
                 break;
             }
         }
-        lab.save(function(err, lab) {
+        lab.save(function (err, lab) {
             console.log('Sucessfully insert report');
         });
     });
@@ -84,11 +84,11 @@ router.post('/:laboratory/:computer', function (req, res) {
 /* POST 실습실 컴퓨터 한 대 제보에 댓글 추가 */
 router.post('/:laboratory/:computer/:report', function (req, res) {
     //laboratory, computer, report id에 해당하는 것을 찾고 comments 추가
-    laboratory.findOne({_id: req.params.laboratory}, function(err, lab){
-        for(var i=0, com; com=lab.computer[i]; i++){
-            if(com._id===req.params.computer){
-                for(var j=0, report; report=com.reports[j]; j++){
-                    if(report._id===req.params.report){
+    laboratory.findOne({_id: req.params.laboratory}, function (err, lab) {
+        for (var i = 0, com; com = lab.computer[i]; i++) {
+            if (com._id === req.params.computer) {
+                for (var j = 0, report; report = com.reports[j]; j++) {
+                    if (report._id === req.params.report) {
                         report.comments.push({
                             author: req.body.author,
                             title: req.body.title,
@@ -99,7 +99,7 @@ router.post('/:laboratory/:computer/:report', function (req, res) {
                 }
             }
         }
-        lab.save(function(err, lab) {
+        lab.save(function (err, lab) {
             console.log('Sucessfully insert comment');
         });
     })

@@ -1,14 +1,10 @@
 var express = require('express');
 /* passport 설정 */
-var passport= require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var session = require('express-session');
-var flash=require('connect-flash');
-//////////////////
-var User=require('../../db/user');
+var passport = require('passport');
+var User = require('../../db/user');
 var router = express.Router();
 
-router.post('/', function(req, res,done) {
+router.post('/', function (req, res, done) {
     var id = req.body.id;
     var password = req.body.password;
     var email = req.body.email;
@@ -29,10 +25,10 @@ router.post('/', function(req, res,done) {
         });
         newUser.save(done);
     });
-},passport.authenticate("login",{
-        successRedirect:'../',
-        failureRedirect:'/',
-        failureFlash:true
+}, passport.authenticate("login", {
+    successRedirect: '../',
+    failureRedirect: '/',
+    failureFlash: true
 }));
 
 module.exports = router;
