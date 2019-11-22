@@ -1,12 +1,14 @@
 <% include common/header.ejs %>
-
+<script src="/javascripts/seatchart.js"></script>
 <div class="container">
     <br><br>
     <h1 class="title is-2">305호 실습실</h1>
     <br>
 
     <div class="columns">
-        <div class="column " style="background: gray;min-height: 600px;"></div>
+        <div class="column" id="seat-chart" style="min-height: 600px;"></div>
+
+
     </div>
     <br>
     <br>
@@ -45,7 +47,23 @@
 <br>
 <br>
 <br>
-
+<div id="background-menu" style="position: absolute;display: none;">
+    <div class="box" style="padding: 0">
+        <ul class="menu-list">
+            <li><a href="javascript:addComputer()">컴퓨터 추가</a></li>
+            <li><a href="javascript:addComputers()">컴퓨터 일괄 추가</a></li>
+        </ul>
+    </div>
+</div>
+<div id="computer-menu" style="position: absolute;display: none;">
+    <div class="box" style="padding: 0">
+        <ul class="menu-list">
+            <li><a href="javascript:renameComputer()">이름 바꾸기</a></li>
+            <li><a href="javascript:resizeComputer()">크기 바꾸기</a></li>
+            <li><a href="javascript:deleteComputer()">삭제</a></li>
+        </ul>
+    </div>
+</div>
 <script>
 
 </script>
