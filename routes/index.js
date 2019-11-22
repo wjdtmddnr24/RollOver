@@ -29,9 +29,11 @@ router.post("/", function (req, res) {
 router.get('/:laboratory/', function (req, res, next) {
     // 실습실 컴퓨터 목록 가져오기 + 최근 제보 목록 가져오기
     laboratory.findOne({_id: req.params.laboratory}, function (err, data) {
-        if (err) throw err;
-        res.render('laboratory');
+        // if (err) throw err;
+        // res.render('laboratory');
     });
+    res.render('laboratory');
+
 });
 
 /* POST 실습실 컴퓨터 추가 */
@@ -54,9 +56,10 @@ router.post('/:laboratory/', function (req, res) {
 router.get('/:laboratory/:computer', function (req, res, next) {
     // 실습실 컴퓨터 한 대의 제보 가져오기
     laboratory.findOne({_id: req.params.laboratory}, function (err, data) {
-        if (err) throw err;
-        res.render('computer');
+        // if (err) throw err;
+        // res.render('computer');
     });
+    res.render('computer');
 });
 
 /* POST 실습실 컴퓨터 한 대 제보 추가 */
@@ -86,9 +89,11 @@ router.post('/:laboratory/:computer', function (req, res) {
 router.get('/:laboratory/:computer/:report', function (req, res, next) {
     // 실습실 컴퓨터 한 대의 제보에 대한 댓글들 가져오기
     laboratory.findOne({_id: req.params.laboratory}, function (err, data) {
-        if (err) throw err;
-        res.render('report');
+        // if (err) throw err;
+        // res.render('report');
     });
+    res.render('report');
+
 });
 
 /* POST 실습실 컴퓨터 한 대 제보에 댓글 추가 */
