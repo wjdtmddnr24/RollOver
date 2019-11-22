@@ -81,6 +81,15 @@ router.post('/:laboratory/:computer', function (req, res) {
     res.render('computer');
 });
 
+/* GET 실습실 컴퓨터 한 대 제보에 댓글 추가 */
+router.get('/:laboratory/:computer/:report', function(req, res, next) {
+    // 실습실 컴퓨터 한 대의 제보에 대한 댓글들 가져오기
+    laboratory.findOne({_id: req.params.laboratory}, function (err, data) {
+        if(err) throw err;
+        res.json(data);
+    });
+});
+
 /* POST 실습실 컴퓨터 한 대 제보에 댓글 추가 */
 router.post('/:laboratory/:computer/:report', function (req, res) {
     //laboratory, computer, report id에 해당하는 것을 찾고 comments 추가
