@@ -7,7 +7,8 @@ router.get('/', function (req, res, next) {
     // 실습실 목록 가져오기
     laboratory.findOne({}, function (err, data) {
         if (err) throw err;
-        res.json(data);
+        // res.json(data);
+        res.render('index');
     });
 });
 
@@ -21,7 +22,7 @@ router.post("/", function (req, res) {
     newLab.save(function (err, lab) {
         console.log('Sucessfully insert laboratory: ' + lab.name);
     });
-    res.render('index');
+    // res.render('index');
 });
 
 /* GET 실습실 컴퓨터 배치도 */
@@ -29,7 +30,7 @@ router.get('/:laboratory/', function (req, res, next) {
     // 실습실 컴퓨터 목록 가져오기 + 최근 제보 목록 가져오기
     laboratory.findOne({_id: req.params.laboratory}, function (err, data) {
         if (err) throw err;
-        res.json(data);
+        res.render('laboratory');
     });
 });
 
@@ -54,7 +55,7 @@ router.get('/:laboratory/:computer', function (req, res, next) {
     // 실습실 컴퓨터 한 대의 제보 가져오기
     laboratory.findOne({_id: req.params.laboratory}, function (err, data) {
         if (err) throw err;
-        res.json(data);
+        res.render('computer');
     });
 });
 
@@ -82,11 +83,11 @@ router.post('/:laboratory/:computer', function (req, res) {
 });
 
 /* GET 실습실 컴퓨터 한 대 제보에 댓글 추가 */
-router.get('/:laboratory/:computer/:report', function(req, res, next) {
+router.get('/:laboratory/:computer/:report', function (req, res, next) {
     // 실습실 컴퓨터 한 대의 제보에 대한 댓글들 가져오기
     laboratory.findOne({_id: req.params.laboratory}, function (err, data) {
-        if(err) throw err;
-        res.json(data);
+        if (err) throw err;
+        res.render('report');
     });
 });
 
@@ -111,7 +112,7 @@ router.post('/:laboratory/:computer/:report', function (req, res) {
         lab.save(function (err, lab) {
             console.log('Sucessfully insert comment');
         });
-    })
+    });
     res.render('report');
 });
 
