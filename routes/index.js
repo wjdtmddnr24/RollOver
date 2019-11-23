@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     laboratory.findOne({}, function (err, data) {
         if (err) throw err;
         // res.json(data);
-        res.render('index');
+        res.render('index', {user: req.user, flash: req.flash()});
     });
 });
 
@@ -26,30 +26,31 @@ router.post("/", function (req, res) {
 });
 
 /* GET 실습실 컴퓨터 배치도 */
-router.get('/:laboratory/', function (req, res, next) {
+router.get('/:laboratory', function (req, res, next) {
     // 실습실 컴퓨터 목록 가져오기 + 최근 제보 목록 가져오기
     laboratory.findOne({_id: req.params.laboratory}, function (err, data) {
         // if (err) throw err;
         // res.render('laboratory');
     });
-    res.render('laboratory');
+    res.render('laboratory', {user: req.user, flash: req.flash()});
 
 });
 
 /* POST 실습실 컴퓨터 추가 */
-router.post('/:laboratory/', function (req, res) {
+router.post('/:laboratory', function (req, res) {
+    console.log(req.params);
     //laboratory id에 해당하는 것을 찾고 computer 추가
     laboratory.findOne({_id: req.params.laboratory}, function (err, lab) {
         lab.computer.push({
             name: req.body.name,
             location: req.body.location,
             property: req.body.property,
-        })
+        });
         lab.save(function (err, lab) {
             console.log('Sucessfully insert computer');
         });
+        res.render('laboratory');
     });
-    res.render('laboratory');
 });
 
 /* GET 실습실 컴퓨터 한 대 제보 */
@@ -59,7 +60,7 @@ router.get('/:laboratory/:computer', function (req, res, next) {
         // if (err) throw err;
         // res.render('computer');
     });
-    res.render('computer');
+    res.render('computer', {user: req.user, flash: req.flash()});
 });
 
 /* POST 실습실 컴퓨터 한 대 제보 추가 */
@@ -92,7 +93,7 @@ router.get('/:laboratory/:computer/:report', function (req, res, next) {
         // if (err) throw err;
         // res.render('report');
     });
-    res.render('report');
+    res.render('report', {user: req.user, flash: req.flash()});
 
 });
 
@@ -118,7 +119,7 @@ router.post('/:laboratory/:computer/:report', function (req, res) {
             console.log('Sucessfully insert comment');
         });
     });
-    res.render('report');
+    // res.render('report'); TODO 바꾸기
 });
 
 module.exports = router;

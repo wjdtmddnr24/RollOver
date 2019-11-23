@@ -5,39 +5,40 @@
             <br>
             <h1 class="title is-1 has-text-centered">로그인</h1>
             <br>
-            <div class="container" style="padding-left: 15px;padding-right: 15px;">
-                <div class="field">
-                    <label class="label">아이디</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input is-success" type="text" placeholder="Text input">
-                        <span class="icon is-small is-left">
+            <form id="login-form" action="/login" method="post">
+                <div class="container" style="padding-left: 15px;padding-right: 15px;">
+                    <div class="field">
+                        <label class="label">아이디</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input " type="text" name="username" placeholder="Text input">
+                            <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
                     </span>
-                        <span class="icon is-small is-right">
+                            <span class="icon is-small is-right">
                           <i class="fas fa-check"></i>
                     </span>
+                        </div>
                     </div>
-                    <p class="help is-success">This username is available</p>
-                </div>
-                <div class="field">
-                    <label class="label">비밀번호</label>
+                    <div class="field">
+                        <label class="label">비밀번호</label>
 
-                    <p class="control has-icons-left">
-                        <input class="input" type="password" placeholder="Password">
-                        <span class="icon is-small is-left">
+                        <p class="control has-icons-left">
+                            <input class="input" type="password" name="password" placeholder="Password">
+                            <span class="icon is-small is-left">
                               <i class="fas fa-lock"></i>
                         </span>
-                    </p>
+                        </p>
+                    </div>
+                    <br>
+                    <div class="field is-grouped is-grouped-centered">
+                        <p class="control">
+                            <a class="button is-primary" href="javascript:LogIn()">
+                                로그인
+                            </a>
+                        </p>
+                    </div>
                 </div>
-                <br>
-                <div class="field is-grouped is-grouped-centered">
-                    <p class="control">
-                        <a class="button is-primary">
-                            로그인
-                        </a>
-                    </p>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
@@ -50,100 +51,102 @@
             <br>
             <h1 class="title is-1 has-text-centered">회원가입</h1>
             <br>
-            <div class="container" style="padding-left: 15px;padding-right: 15px;">
-                <div class="columns">
-                    <div class="column is-6">
-                        <div class="field">
-                            <label class="label">아이디</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input is-success" type="text" placeholder="Text input">
-                                <span class="icon is-small is-left">
+            <form id="signup-form" method="post" action="/signup" autocomplete="off">
+                <div class="container" style="padding-left: 15px;padding-right: 15px;">
+                    <div class="columns">
+                        <div class="column is-6">
+                            <div class="field">
+                                <label class="label">아이디</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" type="text" name="id" placeholder="Text input">
+                                    <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
                     </span>
-                                <span class="icon is-small is-right">
+                                    <span class="icon is-small is-right">
                           <i class="fas fa-check"></i>
                     </span>
+                                </div>
                             </div>
-                            <p class="help is-success">This username is available</p>
+                        </div>
+
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">이름</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" type="text" name="name" placeholder="Text input">
+                                    <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                    </span>
+                                    <span class="icon is-small is-right">
+                          <i class="fas fa-check"></i>
+                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">이메일</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" type="text" name="email" placeholder="Text input">
+                                    <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                    </span>
+                                    <span class="icon is-small is-right">
+                          <i class="fas fa-check"></i>
+                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                </div>
-                <div class="columns">
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">이름</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input is-success" type="text" placeholder="Text input">
-                                <span class="icon is-small is-left">
-                          <i class="fas fa-user"></i>
-                    </span>
-                                <span class="icon is-small is-right">
-                          <i class="fas fa-check"></i>
-                    </span>
-                            </div>
-                            <p class="help is-success">This username is available</p>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">이메일</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input is-success" type="text" placeholder="Text input">
-                                <span class="icon is-small is-left">
-                          <i class="fas fa-user"></i>
-                    </span>
-                                <span class="icon is-small is-right">
-                          <i class="fas fa-check"></i>
-                    </span>
-                            </div>
-                            <p class="help is-success">This username is available</p>
-                        </div>
-                    </div>
-                </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">비밀번호 </label>
 
-                <div class="columns">
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">비밀번호 확인</label>
-
-                            <p class="control has-icons-left">
-                                <input class="input" type="password" placeholder="Password">
-                                <span class="icon is-small is-left">
+                                <p class="control has-icons-left">
+                                    <input class="input" type="password" name="password" id="signup-pw"
+                                           placeholder="Password">
+                                    <span class="icon is-small is-left">
                               <i class="fas fa-lock"></i>
                         </span>
-                            </p>
+                                </p>
+                            </div>
+
                         </div>
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">비밀번호 확인</label>
 
-                    </div>
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">비밀번호</label>
-
-                            <p class="control has-icons-left">
-                                <input class="input" type="password" placeholder="Password">
-                                <span class="icon is-small is-left">
+                                <p class="control has-icons-left">
+                                    <input class="input" type="password" name="pw2" id="signup-pw2"
+                                           placeholder="Password">
+                                    <span class="icon is-small is-left">
                               <i class="fas fa-lock"></i>
                         </span>
-                            </p>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br>
-                <div class="field is-grouped is-grouped-centered">
-                    <p class="control">
-                        <a class="button is-primary">
-                            회원가입
-                        </a>
-                    </p>
-                </div>
+                    <br>
+                    <div class="field is-grouped is-grouped-centered">
+                        <p class="control">
+                            <a class="button is-primary" href="javascript:SignUp();">
+                                회원가입
+                            </a>
+                        </p>
+                    </div>
 
 
-            </div>
+                </div>
+            </form>
         </div>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
+
 
 <div id="report-modal" class="modal ">
     <div class="modal-background"></div>
@@ -304,4 +307,37 @@
             $('#laboratory-modal').addClass('is-active');
         });
     });
+
+    function SignUp() {
+        if ($('#signup-pw').val() !== $('#signup-pw2').val()) {
+            alert('패스워드가 일치하지 않습니다.');
+            return;
+        }
+        if ($('#signup-pw').val().length == 0) {
+            alert('패스워드가 유효하지 않습니다.');
+            return;
+        }
+        // TODO 유효한 내용인지 확인
+        // $('#signup-form').submit();
+        jQuery.ajax({
+            url: '/signup',
+            type: 'POST',
+            data: $('#signup-form').serialize(),
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: 'html',
+            success: function (result) {
+                result = JSON.parse(result);
+                console.log(result);
+                if (result.result === 'success') {
+                    alert('회원가입을 완료했습니다.');
+                } else {
+                    alert('error : ' + result.error);
+                }
+            }
+        });
+    }
+
+    function LogIn() {
+        $('#login-form').submit();
+    }
 </script>

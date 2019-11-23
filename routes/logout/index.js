@@ -9,7 +9,7 @@ var router = express.Router();
 
 router.get('/', function(req, res){
     req.logout();
-    response.redirect('../'); // TODO /아닌강...
+    res.redirect('/'); // TODO /아닌강...
     /*
     request.session.save(function(){
         response.redirect('../');

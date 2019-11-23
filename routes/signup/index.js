@@ -1,34 +1,29 @@
 var express = require('express');
-/* passport 설정 */
-var passport = require('passport');
 var User = require('../../db/user');
 var router = express.Router();
 
-router.post('/', function (req, res, done) {
+router.post('/', function (req, res) {
     var id = req.body.id;
     var password = req.body.password;
     var email = req.body.email;
     var name = req.body.name;
     User.findOne({id: id}, function (err, user) {
         if (err) {
-            return done(err);
+            throw err;
         }
         if (user) {
-            req.flash("error", "사용자가 이미 있습니다.");
-            return res.redirect('/');
+            res.json({result: 'error', error: '사용자가 이미 있습니다.'});
+            return;
         }
         var newUser = new User({
             id: id,
-            password: user.hashedPassword(password),
+            password: User.hashedPassword(password),
             email: email,
             name: name
         });
-        newUser.save(done);
+        newUser.save();
+        res.json({result: 'success'});
     });
-}, passport.authenticate("login", {
-    successRedirect: '../',
-    failureRedirect: '/',
-    failureFlash: true
-}));
+});
 
 module.exports = router;

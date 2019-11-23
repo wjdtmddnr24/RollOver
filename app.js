@@ -40,43 +40,41 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* passport 설정 */
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.use(new LocalStrategy(
+    {
+        usernameField: 'username',
+        passwordField: 'password'
+    },
+    function (id, password, done) {
+        var hashPassword = User.hashedPassword(password);
+        User.findOne({id: id}, function (err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user || !user.validPassword(hashPassword)) {
+                return done(null, false, {message: '계졍 정보가 틀립니다!'});
+            }
+            return done(null, user);
+        })
+    }
+));
+
 app.use(session({
     secret: 'rollover',
     resave: false,
     saveUninitialized: true
 }));
 
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
-
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
-passport.deserializeUser(function (id, done) {
-    User.findOne({id: id}, function (err, user) {
-        done(err, user);
-    });
-});
-
-passport.use(new LocalStrategy(
-    {
-        usernameField: 'id',
-        passwordField: 'password'
-    },
-    function (id, password, done) {
-        var hashPassword = user.hashedPassword(password);
-        User.findOne({id: id}, function (err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (!user || !user.validPassword(hashPassword)) {
-                return done(null, false, {message: 'Incorrect!'});
-            }
-            return done(null, user);
-        })
-    }
-));
 
 
 app.use('/login', loginRouter);

@@ -3,18 +3,18 @@ var Schema = mongoose.Schema;
 var crypto = require('crypto');
 
 var userSchema = new Schema({
-    id:{type:String, required:true},
-    password: {type:String, required:true},
-    email:{type:String, required:true},
-    name: {type:String, required:true},
-    created:{type:Date, default:Date.now}
+    id: {type: String, required: true},
+    password: {type: String, required: true},
+    email: {type: String, required: true},
+    name: {type: String, required: true},
+    created: {type: Date, default: Date.now}
 });
 
-userSchema.methods.validPassword = function(password) {
-    return true;
+userSchema.methods.validPassword = function (password) {
+    return this.password == password;
 };
 
-userSchema.methods.hashedPassword = function(password) {
+userSchema.statics.hashedPassword = function (password) {
     return crypto.createHash("sha256").update(password).digest("hex");
 };
 
