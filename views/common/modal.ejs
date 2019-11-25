@@ -9,21 +9,18 @@
                 <div class="container" style="padding-left: 15px;padding-right: 15px;">
                     <div class="field">
                         <label class="label">아이디</label>
-                        <div class="control has-icons-left has-icons-right">
+                        <div class="control has-icons-left ">
                             <input class="input " type="text" name="username" placeholder="Text input">
                             <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
-                    </span>
-                            <span class="icon is-small is-right">
-                          <i class="fas fa-check"></i>
                     </span>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">비밀번호</label>
-
                         <p class="control has-icons-left">
-                            <input class="input" type="password" name="password" placeholder="Password">
+                            <input class="input" type="password" name="password" placeholder="Password"
+                                   id="login-input">
                             <span class="icon is-small is-left">
                               <i class="fas fa-lock"></i>
                         </span>
@@ -43,7 +40,6 @@
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
-
 <div id="signup-modal" class="modal">
     <div class="modal-background"></div>
     <div class="modal-content" style="width: 750px;">
@@ -57,13 +53,10 @@
                         <div class="column is-6">
                             <div class="field">
                                 <label class="label">아이디</label>
-                                <div class="control has-icons-left has-icons-right">
+                                <div class="control has-icons-left ">
                                     <input class="input" type="text" name="id" placeholder="Text input">
                                     <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
-                    </span>
-                                    <span class="icon is-small is-right">
-                          <i class="fas fa-check"></i>
                     </span>
                                 </div>
                             </div>
@@ -74,13 +67,10 @@
                         <div class="column">
                             <div class="field">
                                 <label class="label">이름</label>
-                                <div class="control has-icons-left has-icons-right">
+                                <div class="control has-icons-left ">
                                     <input class="input" type="text" name="name" placeholder="Text input">
                                     <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
-                    </span>
-                                    <span class="icon is-small is-right">
-                          <i class="fas fa-check"></i>
                     </span>
                                 </div>
                             </div>
@@ -88,14 +78,12 @@
                         <div class="column">
                             <div class="field">
                                 <label class="label">이메일</label>
-                                <div class="control has-icons-left has-icons-right">
+                                <div class="control has-icons-left ">
                                     <input class="input" type="text" name="email" placeholder="Text input">
                                     <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
                     </span>
-                                    <span class="icon is-small is-right">
-                          <i class="fas fa-check"></i>
-                    </span>
+
                                 </div>
                             </div>
                         </div>
@@ -146,8 +134,6 @@
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
-
-
 <div id="report-modal" class="modal ">
     <div class="modal-background"></div>
     <div class="modal-content" style="width: 820px;">
@@ -155,60 +141,54 @@
             <br>
             <h1 class="title is-1 has-text-centered">제보하기</h1>
             <br>
-            <div class="container" style="padding-left: 15px;padding-right: 15px;">
-                <div class="columns">
-                    <div class="column is-6">
-                        <div class="field">
-                            <label class="label">아이디</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input is-success" type="text" placeholder="Text input">
-                                <span class="icon is-small is-left">
-                          <i class="fas fa-user"></i>
-                    </span>
-                                <span class="icon is-small is-right">
-                          <i class="fas fa-check"></i>
-                    </span>
-                            </div>
-                            <p class="help is-success">This username is available</p>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="columns">
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">태그</label>
-                            <div class="control ">
-                                <input class="input is-success" type="text" placeholder="Text input">
-                            </div>
-                            <p class="help is-success">This username is available</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">내용</label>
-                            <div class="control">
-                                <textarea class="textarea has-fixed-size" rows="10"
-                                          placeholder="Fixed size textarea"></textarea>
+            <form action="/" method="post">
+                <div class="container" style="padding-left: 15px;padding-right: 15px;">
+                    <div class="columns">
+                        <div class="column is-6">
+                            <div class="field">
+                                <label class="label">제목</label>
+                                <div class="control has-icons-left ">
+                                    <input class="input" type="text" id="report-title" placeholder="제목을 입력해주세요.">
+                                    <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">태그</label>
+                                <div class="control ">
+                                    <input class="input" type="text" id="report-tags" placeholder="e.g #고컴수 #윈도우 프로그래밍">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">내용</label>
+                                <div class="control">
+                                <textarea class="textarea has-fixed-size" rows="10" id="report-content"
+                                          placeholder="내용을 입력해주세요."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="field is-grouped is-grouped-centered">
+
+                        <p class="control">
+                            <a class="button is-primary" href="javascript:Report();">
+                                제보하기
+                            </a>
+                        </p>
+                    </div>
+
+
                 </div>
-                <br>
-                <div class="field is-grouped is-grouped-centered">
-
-                    <p class="control">
-                        <a class="button is-primary">
-                            제보하기
-                        </a>
-                    </p>
-                </div>
-
-
-            </div>
+            </form>
         </div>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
@@ -220,69 +200,57 @@
             <br>
             <h1 class="title is-1 has-text-centered">실습실 추가하기</h1>
             <br>
-            <div class="container" style="padding-left: 15px;padding-right: 15px;">
-                <div class="columns">
-                    <div class="column is-6">
-                        <div class="field">
-                            <label class="label">실습실 이름</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input is-success" type="text" placeholder="Text input">
-                                <span class="icon is-small is-left">
-                          <i class="fas fa-desktop"></i>
-                    </span>
-                                <span class="icon is-small is-right">
-                          <i class="fas fa-check"></i>
-                    </span>
+            <form id="lab-form" action="/" method="post">
+                <div class="container" style="padding-left: 15px;padding-right: 15px;">
+                    <div class="columns">
+                        <div class="column is-6">
+                            <div class="field">
+                                <label class="label">실습실 이름</label>
+                                <div class="control has-icons-left ">
+                                    <input class="input" type="text" name="name" placeholder="Text input">
+                                    <span class="icon is-small is-left"><i class="fas fa-desktop"></i></span>
+                                </div>
                             </div>
-                            <p class="help is-success">This username is available</p>
                         </div>
                     </div>
 
-                    <div class="column is-6">
-                        <label class="label">실습실 사진</label>
-                        <div class="file has-name is-right">
-                            <label class="file-label">
-                                <input class="file-input" type="file" name="resume">
-                                <span class="file-cta">
-                                      <span class="file-icon">
-                                        <i class="fas fa-upload"></i>
-                                      </span>
-                                      <span class="file-label">
-                                        Choose a file…
-                                      </span>
-                                    </span>
-                                <span class="file-name">
-                                      Screen Shot 2017-07-29 at 15.54.25.png
-                                    </span>
-                            </label>
+                    <div class="columns">
+                        <div class="column ">
+                            <div class="field">
+                                <label class="label">실습실 사진 URL</label>
+                                <div class="control has-icons-left">
+                                    <input class="input " type="text" name="img_url" placeholder="Text input">
+                                    <span class="icon is-small is-left"><i class="fas fa-desktop"></i></span>
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
-
-                </div>
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="field">
-                            <label class="label">실습실 장소</label>
-                            <div class="control">
-                                <textarea class="textarea has-fixed-size" rows="10"
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">실습실 장소</label>
+                                <div class="control">
+                                <textarea class="textarea has-fixed-size" name="location" rows="10"
                                           placeholder="Fixed size textarea"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <div class="field is-grouped is-grouped-centered">
+
+                        <p class="control">
+                            <a class="button is-primary" href="javascript:$('#lab-form').submit();">
+                                추가하기
+                            </a>
+                        </p>
+                    </div>
+
+
                 </div>
-                <br>
-                <div class="field is-grouped is-grouped-centered">
-
-                    <p class="control">
-                        <a class="button is-primary">
-                            추가하기
-                        </a>
-                    </p>
-                </div>
-
-
-            </div>
+            </form>
         </div>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
@@ -301,12 +269,57 @@
             $('#signup-modal').addClass('is-active');
         });
         $('#report-computer').click(function () {
+            <%
+            if(!user){
+            %>
+            alert('로그인을 한 후에 작성하실 수 있습니다.');
+            return;
+            <%
+            }
+            %>
             $('#report-modal').addClass('is-active');
         });
         $('#add-laboratory').click(function () {
             $('#laboratory-modal').addClass('is-active');
         });
+        $("#login-input").keypress(function (e) {
+            if (e.keyCode == 13) {
+                LogIn();
+            }
+        });
     });
+
+    function Report() {
+
+        if ($('#report-title').val().length == 0 || $('#report-content').val().length == 0) {
+            alert('제목과 내용을 입력해주세요!');
+            return;
+        }
+        var tags = [];
+        const tagsText = $('#report-tags').val().split('#');
+        for (let i = 0; i < tagsText.length; i++) {
+            if (tagsText[i].trim().length > 0)
+                tags.push(tagsText[i].trim());
+        }
+        jQuery.ajax({
+            url: '',
+            type: 'POST',
+            data: {title: $('#report-title').val(), content: $('#report-content').val(), tags: tags},
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (result) {
+                // result = JSON.parse(result);
+                console.log(result);
+                if (result.result === 'success') {
+                    alert('성공적으로 추가했습니다.');
+                    window.location.reload();
+                } else {
+                    alert('error! ' + result.error);
+                }
+            }
+        });
+
+    }
 
     function SignUp() {
         if ($('#signup-pw').val() !== $('#signup-pw2').val()) {

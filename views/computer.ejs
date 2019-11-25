@@ -10,8 +10,11 @@
                     Computer
                 </p>
                 <ul class="menu-list">
-                    <% for(let i = 0;i < 40;i++) { %>
-                        <li><a class="<%= i == 3 ? 'is-active' : '' %>">컴퓨터 <%= i %></a></li>
+                    <% for(let i = 0;i < lab.computers.length;i++) { %>
+                        <li>
+                            <a href="<%= `/${lab._id}/${lab.computers[i]._id}` %>"
+                               class="<%= lab.computers[i]._id == com._id ? 'is-active' : '' %>"><%= lab.computers[i].name %></a>
+                        </li>
                     <% } %>
                 </ul>
             </div>
@@ -22,14 +25,16 @@
             <div class="container ">
                 <div class="level">
                     <div class="level-left">
-                        <h1 class="level-item title is-2"><span>305호 실습실</span>/<span>컴퓨터 35</span></h1>
+                        <h1 class="level-item title is-2">
+                            <span><%= lab.name %></span>&nbsp;/&nbsp;<span><%= com.name %></span>
+                        </h1>
                     </div>
                     <div class="level-right">
                         <button class="level-item button is-primary" id="report-computer">제보하기</button>
                     </div>
                 </div>
                 <br><br>
-                <% for(let i = 0; i < 5; i++) { %>
+                <% for(let i = 0; i < 0; i++) { %>
                     <div class="level" style="margin-bottom: 14px;">
                         <div class="level-left">
                             <div class="level-item ">
@@ -61,6 +66,51 @@
                         </div>
                     </div>
                     <hr><br>
+                <% } %>
+                <% for(let i = 0; i < com.reports.length; i++) {
+                    const report = com.reports[i];
+                    const link = `/${lab._id}/${com._id}/${report._id}`; %>
+                <a href="<%= link %>">
+
+                    <div class="level" style="margin-bottom: 14px;">
+                        <div class="level-left">
+                            <div class="level-item ">
+                            <span class="tag <%= report.status === 0 ? 'is-danger' : 'is-primary' %> title is-6"
+                                  id="computer_status"><%= report.status === 0 ? '실행 오류' : '오류 해결' %></span>
+                                <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;">
+                                    <%= report.title %></h3>
+                            </div>
+                        </div>
+                        <div class="level-right" id="person">
+                            <span class="subtitle is-6"><%= report.author %></span>
+                        </div>
+                    </div>
+                    <div class="subtitle is-6" id="contents">
+                        <p><%= report.content %></p>
+                    </div>
+                    <div class="level">
+                        <div class="level-left">
+                            <div>
+                                <%
+                                for (let j = 0; j < report.tags.length; j++) {
+                                    const tag = report.tags[j];
+                                %>
+                                <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">
+                                    #<%= tag %></div>
+                                <%
+                                }
+                                %>
+                            </div>
+                        </div>
+                        <div class="level-right" id="time">
+                            <!-- TODO 날짜 delta구하기                       -->
+                            <span class="level-item subtitle is-6">2일전 제보</span>
+                        </div>
+                    </div>
+                </a>
+
+                <hr>
+                <br>
                 <% } %>
 
             </div>

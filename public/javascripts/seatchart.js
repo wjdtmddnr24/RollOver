@@ -34,8 +34,8 @@ function setBorder() {
         clickPos = stage.getPointerPosition();
         computerMenuNode.style.display = 'none';
         backgroundMenuNode.style.display = 'initial';
-        backgroundMenuNode.style.top = e.evt.clientY - 5 + 'px';
-        backgroundMenuNode.style.left = e.evt.clientX - 5 + 'px';
+        backgroundMenuNode.style.top = e.evt.pageY - 5 + 'px';
+        backgroundMenuNode.style.left = e.evt.pageX - 5 + 'px';
     });
 
 
@@ -87,7 +87,22 @@ function renameComputer() {
 function addComputer(computer) {
     if (computer == null) {
         // TODO ajax로 컴퓨터 추가
-        addComputer({name: 'test', location: {X: clickPos.x, Y: clickPos.y, W: 50, H: 50}});
+        jQuery.ajax({
+            url: '',
+            type: 'POST',
+            data: {name: 'com', location: {X: clickPos.x, Y: clickPos.y, W: 50, H: 50}, property: ''},
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (result) {
+                // result = JSON.parse(result);
+                console.log(result);
+                if (result.result === 'success') {
+                    addComputer(result.data);
+                } else {
+                    alert('error!');
+                }
+            }
+        });
     } else {
         var group = new Konva.Group({
             draggable: true,
@@ -115,6 +130,7 @@ function addComputer(computer) {
             fontFamily: 'Calibri',
             fill: '#212121'
         });
+        group.com = computer;
         group.add(rect);
         group.add(text);
         layer.add(group);
@@ -124,6 +140,10 @@ function addComputer(computer) {
         group.on('mouseout', function () {
             document.body.style.cursor = 'default';
         });
+        group.on('click', function (e) {
+            console.log(this.com._id);
+            window.location.href += `/${this.com._id}`;
+        });
         group.on('contextmenu', function (e) {
             e.evt.preventDefault();
             clickEvt = e.evt;
@@ -131,8 +151,8 @@ function addComputer(computer) {
             curComputer = e.currentTarget;
             backgroundMenuNode.style.display = 'none';
             computerMenuNode.style.display = 'initial';
-            computerMenuNode.style.top = e.evt.clientY - 5 + 'px';
-            computerMenuNode.style.left = e.evt.clientX - 5 + 'px';
+            computerMenuNode.style.top = e.evt.pageY - 5 + 'px';
+            computerMenuNode.style.left = e.evt.pageX - 5 + 'px';
         });
     }
     layer.draw();
@@ -154,20 +174,3 @@ function addComputers(computers) {
         });
     }
 }
-
-$(document).ready(function () {
-    /* $('#seat-chart').resize(function () {
-         stage.width($('#seat-chart').width());
-         stage.height($('#seat-chart').height());
-     });*/
-
-    initKonva();
-    setBorder();
-    setContextMenu();
-
-    for (let i = 1; i < 5; i++) {
-        addComputer({name: `${i}`, location: {X: i * 60, Y: 20, W: 50, H: 50}});
-    }
-
-    layer.draw();
-});

@@ -1,13 +1,10 @@
 <% include common/header.ejs %>
-<br>
-<br>
-
 <div class="column ">
     <div class="column"></div>
     <div class="column is-8 container">
         <div class="level">
             <div class="level-left">
-                <h1 class="level-item title is-2">35 컴퓨터</h1>
+                <h1 class="level-item title is-2"><%= com.name %></h1>
             </div>
         </div>
         <br>
@@ -15,33 +12,40 @@
             <div class="level" style="margin-bottom: 14px;">
                 <div class="level-left">
                     <div class="level-item ">
-                        <span class=" tag is-danger title is-6" id="computer_status">실행 오류</span>
-                        <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;">Visual Studio 2015 실행이 안돼요ㅜㅜ</h3>
+                        <span class=" tag <%= report.status === 0 ? 'is-danger' : 'is-primary' %>  title is-6"
+                              id="computer_status"><%= report.status === 0 ? '실행 오류' : '오류 해결' %></span>
+                        <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;"><%= report.title %></h3>
                     </div>
                 </div>
                 <div class="level-right" id="time">
+                    <!-- TODO delta date 구하기                    -->
                     <span class="level-item subtitle is-6">2일전 제보</span>
                 </div>
             </div>
             <div class="subtitle is-6" id="contents">
-                <p>실행하면 블루스크린 뜹니다ㅜㅜ(내용) 빨리 좀 고쳐달라...</p>
+                <p><%= report.content %></p>
             </div>
             <div class="level">
                 <div class="level-left">
                     <div>
-                        <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#고컴수</div>
-                        <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#윈도우 프로그래밍</div>
-                        <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#Visual Studio 2015
-                        </div>
+                        <%
+                        for (let j = 0; j < report.tags.length; j++) {
+                            const tag = report.tags[j];
+                        %>
+                        <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">
+                            #<%= tag %></div>
+                        <%
+                        }
+                        %>
                     </div>
                 </div>
                 <div class="level-right" id="person">
-                    <span class="subtitle is-6">wjdtmddnr24</span>
+                    <span class="subtitle is-6"><%= report.author %></span>
                 </div>
             </div>
         </div>
         <br>
-        <% for(let i = 0;i < 5;i++) { %>
+        <% for(let i = 0;i < 0;i++) { %>
             <div class="box">
                 <div class="level" style="margin-bottom: 15px;">
                     <div class="level-left">
@@ -98,41 +102,123 @@
                 </div>
             </div>
         <% } %>
-        <hr>
+        <% for(let i = 0;i < report.comments.length;i++) {
+            const comment = report.comments[i]; %>
+
         <div class="box">
-            <div class="field">
-                <div class="field">
-                    <label class="label">제목</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control is-expanded">
-                                <input class="input" type="text" placeholder="title">
-                            </div>
-                        </div>
+            <div class="level" style="margin-bottom: 15px;">
+                <div class="level-left">
+                    <div class="level-item ">
+                        <h3 class="title is-4" id="title"><%= comment.title %></h3>
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label">내용</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control is-expanded">
-                                <textarea class="textarea" placeholder="comments"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="level-right">
+                    <a class="" style="color:black;">
+                        <span class="icon ">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </span>
+                    </a>
                 </div>
             </div>
-            <br>
-            <div class="field is-grouped is-grouped-right">
-                <p class="control">
-                    <a class="button is-primary">
-                        댓글달기
-                    </a>
-                </p>
+            <div class="container">
+                <div class="level" style="margin-bottom: 15px;">
+                    <div class="level-left">
+
+                    </div>
+                    <div class="level-right" id="person">
+                        <!--                        TODO delta date..-->
+                        <span class="subtitle is-6">2일전 제보</span>
+                    </div>
+                </div>
+                <div class="subtitle is-6" id="contents" style="margin-bottom: 15px">
+                    <p><%= comment.content %>
+                    </p>
+                </div>
+            </div>
+            <div class="level">
+                <div class="level-left">
+                </div>
+                <div class="level-right" id="person">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <span class="subtitle is-6"><%= comment.author %></span>
+                </div>
             </div>
         </div>
+        <% } %>
+
+        <hr>
+        <div class="box">
+            <form action="" id="report-form" method="post">
+                <div class="field">
+                    <div class="field">
+                        <label class="label">제목</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control is-expanded">
+                                    <input class="input" id="comment-title" type="text" name="title"
+                                           placeholder="title">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">내용</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control is-expanded">
+                                    <textarea class="textarea" id="comment-content" name="content"
+                                              placeholder="comments"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br>
+                <div class="field is-grouped is-grouped-right">
+                    <p class="control">
+                        <a class="button is-primary" href="javascript:ReportComment()">
+                            댓글달기
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
+    <script>
+        function ReportComment() {
+            <%
+            if(!user){
+            %>
+            alert('로그인을 한 후에 작성하실 수 있습니다.');
+            return;
+            <%
+            }
+            %>
+            if ($('#comment-title').val().length == 0 || $('#comment-content').val().length == 0) {
+                alert('제목과 내용을 입력해주세요!');
+                return;
+            }
+            jQuery.ajax({
+                url: '',
+                type: 'POST',
+                data: $('#report-form').serialize(),
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                dataType: 'html',
+                success: function (result) {
+                    result = JSON.parse(result);
+                    console.log(result);
+                    if (result.result === 'success') {
+                        alert('댓글을 작성했습니다.');
+                        window.location.reload();
+                    } else {
+                        alert('error : ' + result.error);
+                    }
+                }
+            });
+        }
+    </script>
     <div class="column"></div>
 </div>
 

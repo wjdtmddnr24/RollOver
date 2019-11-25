@@ -1,8 +1,8 @@
 <% include common/header.ejs %>
 <script src="/javascripts/seatchart.js"></script>
 <div class="container">
-    <br><br>
-    <h1 class="title is-2">305호 실습실</h1>
+    <br>
+    <h1 class="title is-2"><%= lab.name %></h1>
     <br>
 
     <div class="columns">
@@ -14,6 +14,7 @@
     <br>
 
     <h1 class="title is-3">최근 제보</h1>
+    <!--    TODO 최근 제보 구하기-->
     <br>
     <%
     for (var i = 0; i < 10; i++) {
@@ -47,24 +48,30 @@
 <br>
 <br>
 <br>
-<div id="background-menu" style="position: absolute;display: none;">
-    <div class="box" style="padding: 0">
-        <ul class="menu-list">
-            <li><a href="javascript:addComputer()">컴퓨터 추가</a></li>
-            <li><a href="javascript:addComputers()">컴퓨터 일괄 추가</a></li>
-        </ul>
-    </div>
-</div>
-<div id="computer-menu" style="position: absolute;display: none;">
-    <div class="box" style="padding: 0">
-        <ul class="menu-list">
-            <li><a href="javascript:renameComputer()">이름 바꾸기</a></li>
-            <li><a href="javascript:resizeComputer()">크기 바꾸기</a></li>
-            <li><a href="javascript:deleteComputer()">삭제</a></li>
-        </ul>
-    </div>
-</div>
+
 <script>
 
+    $(document).ready(function () {
+        /* $('#seat-chart').resize(function () {
+             stage.width($('#seat-chart').width());
+             stage.height($('#seat-chart').height());
+         });*/
+        initKonva();
+        setBorder();
+        setContextMenu();
+        <%
+        for (let i = 0; i < lab.computers.length; i++) {
+            const com = lab.computers[i];
+            console.log(com);
+        %>
+        addComputer(JSON.parse('<%- JSON.stringify(com) %>'));
+        <%
+        }
+        %>
+        for (let i = 1; i < 5; i++) {
+            addComputer({name: `${i}`, location: {X: i * 60, Y: 20, W: 50, H: 50}});
+        }
+        layer.draw();
+    });
 </script>
 <% include common/footer.ejs %>

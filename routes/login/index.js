@@ -5,11 +5,10 @@ var passport = require('passport');
 var router = express.Router();
 
 router.post('/', passport.authenticate('local', {
-    successRedirect: '/',
+    successReturnToOrRedirect: '/',
     failureFlash: true,
     failureRedirect: '/' // TODO 재진입 // alert
 }), function (req, res) {
-
 });
 
 module.exports = router;

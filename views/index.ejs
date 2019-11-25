@@ -1,7 +1,7 @@
 <% include common/header.ejs %>
 
 <div class="container">
-    <br><br>
+    <br>
     <nav class="level" style="margin-bottom: 28px;">
         <div class="level-left">
             <h1 class="title is-1">실습실 목록</h1>
@@ -13,34 +13,37 @@
     </nav>
 
     <%
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < labs.length / 3 + (labs.length % 3 == 0 ? 0 : 1) ; i++) {
     %>
         <div class="columns">
             <%
-            for (var j = 0; j < 3; j++) {
+            for (var j = 0; j < Math.min(labs.length - i * 3, 3); j++) {
+                const lab = labs[i * 3 + j];
             %>
-                <div class="column is-4">
+            <div class="column is-4">
+                <a href="/<%= lab._id %>">
                     <div class="card">
                         <div class="card-image">
                             <figure class="image is-16by9">
-                                <!-- <img src="https://image.chosun.com/sitedata/image/201901/29/2019012900151_0.jpg" alt="Placeholder image"> -->
-                                <img src="https://bulma.io/images/placeholders/640x360.png" alt="Placeholder image">
+
+                                <img src="<%= lab.img_url ? lab.img_url : 'https://image.chosun.com/sitedata/image/201901/29/2019012900151_0.jpg' %>"
+                                     alt="Placeholder image">
+                                <!--                            <img src="https://bulma.io/images/placeholders/640x360.png" alt="Placeholder image">-->
                             </figure>
                         </div>
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-4">John Smith</p>
+                                    <p class="title is-4"><%= lab.name %></p>
                                     <div class="subtitle is-6">
                                         <div class="columns">
                                             <div class="column is-vcentered">
                                                 <span class="icon content-icon"><i
-                                                            class="fas fa-map-marker-alt"></i></span> 정보과학관
-                                                301호
+                                                            class="fas fa-map-marker-alt"></i></span><%= lab.location %>
                                             </div>
                                             <div class="column">
                                                 <span><span class="icon content-icon"><i
-                                                                class="fas fa-desktop"></i></span> 전체 36대</span>
+                                                                class="fas fa-desktop"></i></span> 전체 <%= lab.computers.length %>대</span>
                                             </div>
                                         </div>
                                     </div>
@@ -54,24 +57,28 @@
                                         </div>
                                     </div>
                                     <div class="level-right">
-                                        <p class="level-item"><span class="has-text-grey-light">65</span>&nbsp;제보 </p>
+                                        <%
+                                            var cnt = 0;
+                                            lab.computers.forEach((com) => {
+                                                cnt += com.reports.length;
+                                            });
+                                        %>
+                                        <p class="level-item"><span class="has-text-grey-light"><%= cnt %></span>&nbsp;제보
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                </a>
+            </div>
             <%
             } %>
         </div>
-
     <%
     }
     %>
 </div>
-<br>
-<br>
 <br>
 <br>
 <br>
