@@ -10,7 +10,14 @@
                     Computer
                 </p>
                 <ul class="menu-list">
-                    <% for(let i = 0;i < lab.computers.length;i++) { %>
+                    <%
+                    lab.computers.sort(function (a, b) {
+                        if (!isNaN(a.name) && !isNaN(b.name)) {
+                            return parseInt(a.name) < parseInt(b.name) ? -1 : parseInt(a.name) >parseInt(b.name)  ? 1 : 0;
+                        }
+                        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+                    });
+                    for(let i = 0;i < lab.computers.length;i++) { %>
                         <li>
                             <a href="<%= `/${lab._id}/${lab.computers[i]._id}` %>"
                                class="<%= lab.computers[i]._id == com._id ? 'is-active' : '' %>"><%= lab.computers[i].name %></a>

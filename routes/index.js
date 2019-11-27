@@ -46,7 +46,6 @@ router.post('/:laboratory', function (req, res) {
         if (err) {
             res.json({result: 'error'});
         }
-        console.log(req.body);
         switch (req.body.type) {
             case 'add-computer': {
                 lab.computers.push({
@@ -90,7 +89,6 @@ router.post('/:laboratory', function (req, res) {
                 }
                 com.location.W = W;
                 com.location.H = H;
-                console.log(com);
                 res.json({result: 'success', data: {_id: _id, W: W, H: H}});
                 lab.save();
                 break;
@@ -202,7 +200,6 @@ router.post('/:laboratory/:computer', function (req, res) {
             res.json({result: 'error', error: 'no such computer!'});
             return;
         }
-        console.log(req.user);
         com.reports.push({
             title: req.body.title,
             content: req.body.content,
