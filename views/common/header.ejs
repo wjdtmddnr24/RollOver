@@ -58,7 +58,7 @@ if (flash.error && flash.error.length > 0) { %>
                             </a>
                         </div>
                     <% } else{ %>
-                        <a class="" id="login" style="color: black;">
+                        <a class="" id="" style="color: black;">
                             <p class="title is-5">
                                 Wellcome <%= user.id %></p>
                         </a>&nbsp;&nbsp;
@@ -75,9 +75,26 @@ if (flash.error && flash.error.length > 0) { %>
     <nav class="breadcrumb is-medium" aria-label="breadcrumbs" style="margin-top: 2em; margin-bottom: 1.5em;">
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="#">Laboratory</a></li>
-            <li><a href="#">Computer</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Report</a></li>
+            <% if (lab) {
+            %>
+                <li><a href="/<%= lab._id %>"><%= lab.name %></a></li>
+            <%
+            }
+            %>
+            <% if (com) {
+            %>
+                <li><a href="<%= `/${lab._id}/${com._id}` %>"><%= com.name %></a></li>
+            <%
+            }
+            %>
+            <%
+            if (report) {
+            %>
+                <li class="is-active"><a href="<%= `/${lab._id}/${com._id}/${report._id}` %>"
+                                         aria-current="page"><%= report.title %></a></li>
+            <%
+            }
+            %>
         </ul>
     </nav>
 </div>

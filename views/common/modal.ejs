@@ -301,6 +301,7 @@
             if (tagsText[i].trim().length > 0)
                 tags.push(tagsText[i].trim());
         }
+        tags = Array.from(new Set(tags));
         jQuery.ajax({
             url: '',
             type: 'POST',

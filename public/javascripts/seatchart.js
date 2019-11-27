@@ -60,6 +60,25 @@ location : {}
  */
 function deleteComputer() {
     //TODO 컴퓨터 지우기
+    jQuery.ajax({
+        url: '',
+        type: 'POST',
+        data: {
+            type: 'remove-computer',
+            _id: curComputer.com._id,
+        },
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (result) {
+            console.log(result);
+            if (result.result === 'success') {
+                getCom(result.data._id).destroy();
+                layer.draw();
+            } else {
+                alert('error!');
+            }
+        }
+    });
 }
 
 function resizeComputer() {
@@ -67,30 +86,76 @@ function resizeComputer() {
     if (text.length > 0 && text.split(' ').length >= 2 && !isNaN(parseInt(text.split(' ')[0])) && !isNaN(parseInt(text.split(' ')[1]))) {
         var x = parseInt(text.split(' ')[0]);
         var y = parseInt(text.split(' ')[1]);
-        curComputer.children[0].size({
-            width: x,
-            height: y
+        jQuery.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                type: 'resize-computer',
+                _id: curComputer.com._id,
+                W: x,
+                H: y
+            },
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (result) {
+                console.log(result);
+                if (result.result === 'success') {
+                    getCom(result.data._id).children[0].size({
+                        width: result.data.W,
+                        height: result.data.H
+                    });
+                    layer.draw();
+                } else {
+                    alert('error!');
+                }
+            }
         });
-        layer.draw();
     }
 }
 
 function renameComputer() {
     // TODO ajax 이름 바꾸기
+    if (!curComputer.com || !curComputer.com._id) return;
     var text = prompt("변경할 이름을 입력하세요.", curComputer.children[1].text());
     if (text != null) {
-        curComputer.children[1].text(text);
-        layer.draw();
+        jQuery.ajax({
+            url: '',
+            type: 'POST',
+            data: {
+                type: 'rename-computer',
+                _id: curComputer.com._id,
+                name: text
+            },
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (result) {
+                console.log(result);
+                if (result.result === 'success') {
+                    getCom(result.data._id).children[1].text(result.data.name);
+                    layer.draw();
+                } else {
+                    alert('error!');
+                }
+            }
+        });
+
     }
 }
 
 function addComputer(computer) {
     if (computer == null) {
         // TODO ajax로 컴퓨터 추가
+        var name = prompt("컴퓨터의 이름을 입력해주세요");
+        if (name.length === 0) return;
         jQuery.ajax({
             url: '',
             type: 'POST',
-            data: {name: 'com', location: {X: clickPos.x, Y: clickPos.y, W: 50, H: 50}, property: ''},
+            data: {
+                type: 'add-computer',
+                name: name,
+                location: {X: clickPos.x, Y: clickPos.y, W: 50, H: 50},
+                property: ''
+            },
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (result) {
@@ -140,6 +205,32 @@ function addComputer(computer) {
         group.on('mouseout', function () {
             document.body.style.cursor = 'default';
         });
+        group.on('dragend', function (e) {
+            console.log(e);
+            t = this;
+            // console.log('e',this, this.x(), this.y());
+            jQuery.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    type: 'move-computer',
+                    _id: this.com._id,
+                    X: this.children[0].x() + this.x(),
+                    Y: this.children[0].y() + this.y()
+                },
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (result) {
+                    console.log(result);
+                    if (result.result === 'success') {
+                        console.log('move done');
+                    } else {
+                        alert('error!');
+                    }
+                }
+            });
+
+        });
         group.on('click', function (e) {
             console.log(this.com._id);
             window.location.href += `/${this.com._id}`;
@@ -160,17 +251,53 @@ function addComputer(computer) {
 
 function addComputers(computers) {
     if (computers == null) {
-        // TODO 사용자 크기 입력 받기
         // TODO ajax로 컴퓨터 추가 2
         computers = [];
-        for (let i = 0; i < 5; i++) {
-            for (let j = 0; j < 5; j++)
-                computers.push({name: 'test', location: {X: clickPos.x + j * 60, Y: clickPos.y + i * 60, W: 50, H: 50}})
+        var text = prompt("행 개수와 열 개수를 띄어쓰기로 구분해서 입력해주세요.", `1 1`);
+        if (text && text.length > 0 && text.split(' ').length >= 2 && !isNaN(parseInt(text.split(' ')[0])) && !isNaN(parseInt(text.split(' ')[1]))) {
+            var y = parseInt(text.split(' ')[0]);
+            var x = parseInt(text.split(' ')[1]);
+            for (let i = 0; i < y; i++) {
+                for (let j = 0; j < x; j++) {
+                    computers.push({
+                        name: 'com',
+                        location: {X: clickPos.x + j * 60, Y: clickPos.y + i * 60, W: 50, H: 50}
+                    });
+                }
+            }
+            jQuery.ajax({
+                url: '',
+                type: 'POST',
+                data: {
+                    type: 'add-computers',
+                    data: computers
+                },
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (result) {
+                    // result = JSON.parse(result);
+                    console.log(result);
+                    if (result.result === 'success') {
+                        addComputers(result.data);
+                    } else {
+                        alert('error!');
+                    }
+                }
+            });
         }
         addComputers(computers);
     } else {
         computers.forEach(function (computer) {
             addComputer(computer);
         });
+    }
+}
+
+function getCom(id) {
+    for (let i = 0; i < layer.children.length; i++) {
+        var group = layer.children[i];
+        if (group.com && group.com._id === id) {
+            return group;
+        }
     }
 }

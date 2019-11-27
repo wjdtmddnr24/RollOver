@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     laboratory.find({}, function (err, labs) {
         if (err) throw err;
         // res.json(data);
-        res.render('index', {user: req.user, flash: req.flash(), labs: labs});
+        res.render('index', {user: req.user, flash: req.flash(), labs: labs, lab: null, com: null, report: null});
     });
 });
 
@@ -33,7 +33,7 @@ router.get('/:laboratory', function (req, res, next) {
             res.status(404).send('no such computer!');
             return;
         }
-        res.render('laboratory', {user: req.user, flash: req.flash(), lab: lab});
+        res.render('laboratory', {user: req.user, flash: req.flash(), lab: lab, com: null, report: null});
     });
     // res.render('laboratory', {user: req.user, flash: req.flash()});
 
@@ -47,13 +47,117 @@ router.post('/:laboratory', function (req, res) {
             res.json({result: 'error'});
         }
         console.log(req.body);
-        lab.computers.push({
-            name: req.body.name,
-            location: req.body.location,
-            property: req.body.property,
-        });
-        lab.save();
-        res.json({result: 'success', data: lab.computers[lab.computers.length - 1]});
+        switch (req.body.type) {
+            case 'add-computer': {
+                lab.computers.push({
+                    name: req.body.name,
+                    location: req.body.location,
+                    property: req.body.property,
+                });
+                lab.save();
+                res.json({result: 'success', data: lab.computers[lab.computers.length - 1]});
+                break;
+            }
+            case 'add-computers': {
+                var coms = [];
+                for (let i = 0; i < req.body.data.length; i++) {
+                    const com = req.body.data[i];
+                    lab.computers.push({
+                        name: com.name,
+                        location: com.location,
+                        property: com.property,
+                    });
+                    coms.push(lab.computers[lab.computers.length - 1]);
+                }
+                lab.save();
+                res.json({result: 'success', data: coms});
+                break;
+            }
+            case 'resize-computer': {
+                const _id = req.body._id;
+                const W = req.body.W;
+                const H = req.body.H;
+                var com = null;
+                for (let i = 0; i < lab.computers.length; i++) {
+                    if (lab.computers[i]._id.toString() === _id) {
+                        com = lab.computers[i];
+                        break;
+                    }
+                }
+                if (!com) {
+                    res.json({result: 'error', error: 'no such computer'});
+                    return;
+                }
+                com.location.W = W;
+                com.location.H = H;
+                console.log(com);
+                res.json({result: 'success', data: {_id: _id, W: W, H: H}});
+                lab.save();
+                break;
+            }
+            case 'rename-computer': {
+                const _id = req.body._id;
+                const name = req.body.name;
+                var com = null;
+                for (let i = 0; i < lab.computers.length; i++) {
+                    if (lab.computers[i]._id.toString() === _id) {
+                        com = lab.computers[i];
+                        break;
+                    }
+                }
+                if (!com) {
+                    res.json({result: 'error', error: 'no such computer'});
+                    return;
+                }
+                com.name = name;
+                res.json({result: 'success', data: {_id: _id, name: name}});
+                lab.save();
+                break;
+            }
+            case 'remove-computer': {
+                const _id = req.body._id;
+                const name = req.body.name;
+                var com = null;
+                for (let i = 0; i < lab.computers.length; i++) {
+                    if (lab.computers[i]._id.toString() === _id) {
+                        com = lab.computers[i];
+                        break;
+                    }
+                }
+                if (!com) {
+                    res.json({result: 'error', error: 'no such computer'});
+                    return;
+                }
+                lab.computers.pull(com);
+                res.json({result: 'success', data: {_id: _id}});
+                lab.save();
+                break;
+            }
+            case 'move-computer': {
+                const _id = req.body._id;
+                var com = null;
+                for (let i = 0; i < lab.computers.length; i++) {
+                    if (lab.computers[i]._id.toString() === _id) {
+                        com = lab.computers[i];
+                        break;
+                    }
+                }
+                if (!com) {
+                    res.json({result: 'error', error: 'no such computer'});
+                    return;
+                }
+
+                com.location.X = req.body.X;
+                com.location.Y = req.body.Y;
+                lab.save();
+                res.json({result: 'success', data: {_id: _id, X: com.location.X, Y: com.location.Y}});
+                break;
+            }
+            default: {
+                res.json({result: 'error', error: 'no such type'});
+            }
+        }
+
     });
 });
 
@@ -76,7 +180,7 @@ router.get('/:laboratory/:computer', function (req, res) {
             res.status(404).send('no such computer!');
             return;
         }
-        res.render('computer', {user: req.user, flash: req.flash(), lab: lab, com: com});
+        res.render('computer', {user: req.user, flash: req.flash(), lab: lab, com: com, report: null});
     });
 });
 
@@ -175,13 +279,19 @@ router.post('/:laboratory/:computer/:report', function (req, res) {
             res.json({result: 'error', error: 'no such report!'});
             return;
         }
-        report.comments.push({
-            author: req.user.id,
-            title: req.body.title,
-            content: req.body.content
-        });
-        lab.save();
-        res.json({result: 'success'});
+        if (req.body.type === 'toggle-status') {
+            report.status = req.body.data;
+            lab.save();
+            res.json({result: 'success'});
+        } else {
+            report.comments.push({
+                author: req.user.id,
+                title: req.body.title,
+                content: req.body.content
+            });
+            lab.save();
+            res.json({result: 'success'});
+        }
     });
 });
 

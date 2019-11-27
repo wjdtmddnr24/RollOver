@@ -12,8 +12,18 @@
             <div class="level" style="margin-bottom: 14px;">
                 <div class="level-left">
                     <div class="level-item ">
-                        <span class=" tag <%= report.status === 0 ? 'is-danger' : 'is-primary' %>  title is-6"
-                              id="computer_status"><%= report.status === 0 ? '실행 오류' : '오류 해결' %></span>
+                        <% if (user && user.id === report.author) {
+                        %>
+                            <a href="javascript:ToggleStatus()">
+                            <span class=" tag <%= report.status === 0 ? 'is-danger' : 'is-primary'; %>  title is-6"
+                                  id="computer_status"><%= report.status === 0 ? '실행 오류' : '오류 해결' %></span>
+                            </a>
+                        <%
+                        }else {
+                        %>  <span class=" tag <%= report.status === 0 ? 'is-danger' : 'is-primary'; %>  title is-6"
+                                  id="computer_status"><%= report.status === 0 ? '실행 오류' : '오류 해결' %></span>
+                        <% } %>
+
                         <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;"><%= report.title %></h3>
                     </div>
                 </div>
@@ -45,63 +55,6 @@
             </div>
         </div>
         <br>
-        <% for(let i = 0;i < 0;i++) { %>
-            <div class="box">
-                <div class="level" style="margin-bottom: 15px;">
-                    <div class="level-left">
-                        <div class="level-item ">
-                            <h3 class="title is-4" id="title">Visual Studio 2015 실행이 안돼요ㅜㅜ </h3>
-                        </div>
-                    </div>
-                    <div class="level-right">
-                        <a class="" style="color:black;">
-                        <span class="icon ">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="level" style="margin-bottom: 15px;">
-                        <div class="level-left">
-
-                        </div>
-                        <div class="level-right" id="person">
-                            <span class="subtitle is-6">2일전 제보</span>
-                        </div>
-                    </div>
-                    <div class="subtitle is-6" id="contents" style="margin-bottom: 15px">
-                        <p>실행하면 블루스크린 뜹니다ㅜㅜ(내용) 빨리 좀 고쳐달라...
-                            Contrary to popular belief, Lorem Ipsum is not simply random text. I
-                            t has roots in a piece of classical Latin literature from 45 BC,
-                            making it over 2000 years old. Richard McClintock, a Latin professor at
-                            Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words,
-                            onsectetur, from a Lorem Ipsum passage, and going through the cites of the word in cl
-                            assical literature, discovered the undoubtable source. Lorem Ipsum comes from sections
-                            1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil)
-                            by
-                            Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular
-                            d
-                            uring the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..",
-                            come
-                            s from a line in section 1.10.32.
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those in
-                            terested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Ci
-                            cero are also reproduced in their exact original form, accompanied by English versions
-                            from the 1914 translation by H. Rackham.
-                        </p>
-                    </div>
-                </div>
-                <div class="level">
-                    <div class="level-left">
-                    </div>
-                    <div class="level-right" id="person">
-                        <span class="icon"><i class="fas fa-user"></i></span>
-                        <span class="subtitle is-6">wjdtmddnr24</span>
-                    </div>
-                </div>
-            </div>
-        <% } %>
         <% for(let i = 0;i < report.comments.length;i++) {
             const comment = report.comments[i]; %>
 
@@ -114,9 +67,9 @@
                 </div>
                 <div class="level-right">
                     <a class="" style="color:black;">
-                        <span class="icon ">
+                     <!--   <span class="icon ">
                             <i class="fas fa-ellipsis-v"></i>
-                        </span>
+                        </span>-->
                     </a>
                 </div>
             </div>
@@ -139,7 +92,7 @@
                 <div class="level-left">
                 </div>
                 <div class="level-right" id="person">
-                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <!--                    <span class="icon"><i class="fas fa-user"></i></span>-->
                     <span class="subtitle is-6"><%= comment.author %></span>
                 </div>
             </div>
@@ -218,11 +171,28 @@
                 }
             });
         }
+
+        function ToggleStatus() {
+            jQuery.ajax({
+                url: '',
+                type: 'POST',
+                data: {type: 'toggle-status', data: <%= report.status > 0 ? 0 : 1 %>},
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    if (result.result === 'success') {
+                        alert('상태를 수정하였습니다!')
+                        window.location.reload();
+                    } else {
+                        alert('error : ' + result.error);
+                    }
+                }
+            });
+        }
     </script>
     <div class="column"></div>
 </div>
-
-
 <br>
 <br>
 <% include common/footer.ejs %>
