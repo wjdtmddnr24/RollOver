@@ -232,10 +232,13 @@ function addComputer(computer) {
 
         });
         group.on('click', function (e) {
-            console.log(this.com._id);
+            // console.log(this.com._id);
+            // console.log('a', e);
+            if(e.evt.button == 2) return;
             window.location.href += `/${this.com._id}`;
         });
         group.on('contextmenu', function (e) {
+            // console.log('b', e);
             e.evt.preventDefault();
             clickEvt = e.evt;
             clickPos = stage.getPointerPosition();
