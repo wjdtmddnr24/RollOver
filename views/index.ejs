@@ -36,12 +36,12 @@
                                 <div class="media-content">
                                     <p class="title is-4"><%= lab.name %></p>
                                     <div class="subtitle is-6">
-                                        <div class="columns">
-                                            <div class="column is-vcentered">
+                                        <div class="columns" style="min-height: 65px;">
+                                            <div class="column is-vcentered is-7">
                                                 <span class="icon content-icon"><i
-                                                            class="fas fa-map-marker-alt"></i></span><%= lab.location %>
+                                                            class="fas fa-map-marker-alt"></i></span>&nbsp;<%= lab.location %>
                                             </div>
-                                            <div class="column">
+                                            <div class="column is-5">
                                                 <span><span class="icon content-icon"><i
                                                                 class="fas fa-desktop"></i></span> 전체 <%= lab.computers.length %>대</span>
                                             </div>
