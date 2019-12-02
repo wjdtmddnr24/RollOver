@@ -70,7 +70,7 @@ function deleteComputer() {
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (result) {
-            console.log(result);
+            // console.log(result);
             if (result.result === 'success') {
                 getCom(result.data._id).destroy();
                 layer.draw();
@@ -98,7 +98,7 @@ function resizeComputer() {
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (result) {
-                console.log(result);
+                // console.log(result);
                 if (result.result === 'success') {
                     getCom(result.data._id).children[0].size({
                         width: result.data.W,
@@ -129,7 +129,7 @@ function renameComputer() {
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (result) {
-                console.log(result);
+                // console.log(result);
                 if (result.result === 'success') {
                     getCom(result.data._id).children[1].text(result.data.name);
                     layer.draw();
@@ -160,7 +160,7 @@ function addComputer(computer) {
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (result) {
                 // result = JSON.parse(result);
-                console.log(result);
+                // console.log(result);
                 if (result.result === 'success') {
                     addComputer(result.data);
                 } else {
@@ -206,7 +206,7 @@ function addComputer(computer) {
             document.body.style.cursor = 'default';
         });
         group.on('dragend', function (e) {
-            console.log(e);
+            console.log('de', e);
             t = this;
             // console.log('e',this, this.x(), this.y());
             jQuery.ajax({
@@ -221,7 +221,7 @@ function addComputer(computer) {
                 dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 success: function (result) {
-                    console.log(result);
+                    // console.log(result);
                     if (result.result === 'success') {
                         console.log('move done');
                     } else {
@@ -233,12 +233,12 @@ function addComputer(computer) {
         });
         group.on('click', function (e) {
             // console.log(this.com._id);
-            // console.log('a', e);
-            if(e.evt.button == 2) return;
+            console.log('c', e);
+            if (e.evt.button == 2) return;
             window.location.href += `/${this.com._id}`;
         });
         group.on('contextmenu', function (e) {
-            // console.log('b', e);
+            console.log('cm', e);
             e.evt.preventDefault();
             clickEvt = e.evt;
             clickPos = stage.getPointerPosition();
@@ -279,7 +279,7 @@ function addComputers(computers) {
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 success: function (result) {
                     // result = JSON.parse(result);
-                    console.log(result);
+                    // console.log(result);
                     if (result.result === 'success') {
                         addComputers(result.data);
                     } else {
@@ -288,7 +288,6 @@ function addComputers(computers) {
                 }
             });
         }
-        addComputers(computers);
     } else {
         computers.forEach(function (computer) {
             addComputer(computer);
