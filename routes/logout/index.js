@@ -1,20 +1,15 @@
 var express = require('express');
 /* passport 설정 */
-var passport= require('passport');
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var flash=require('connect-flash');
+var flash = require('connect-flash');
 //////////////////
-var User=require('../../db/user');
+var User = require('../../db/user');
 var router = express.Router();
 
-router.get('/', function(req, res){
+router.get('/', function (req, res) {
     req.logout();
-    res.redirect('/'); // TODO /아닌강...
-    /*
-    request.session.save(function(){
-        response.redirect('../');
-    })
-     */
+    res.redirect('/');
 });
 
 module.exports = router;

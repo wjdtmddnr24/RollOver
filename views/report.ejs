@@ -16,20 +16,19 @@
                         %>
                             <a href="javascript:ToggleStatus()">
                             <span class=" tag <%= report.status === 0 ? 'is-danger' : 'is-primary'; %>  title is-6"
-                                  id="computer_status"><%= report.status === 0 ? '실행 오류' : '오류 해결' %></span>
+                                  id="computer_status"><%= report.status === 0 ? '문제 발생' : '문제 해결' %></span>
                             </a>
                         <%
                         }else {
                         %>  <span class=" tag <%= report.status === 0 ? 'is-danger' : 'is-primary'; %>  title is-6"
-                                  id="computer_status"><%= report.status === 0 ? '실행 오류' : '오류 해결' %></span>
+                                  id="computer_status"><%= report.status === 0 ? '문제 발생' : '문제 해결' %></span>
                         <% } %>
 
                         <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;"><%= report.title %></h3>
                     </div>
                 </div>
                 <div class="level-right" id="time">
-                    <!-- TODO delta date 구하기                    -->
-                    <span class="level-item subtitle is-6">2일전 제보</span>
+                    <span class="level-item subtitle is-6"><%= Math.floor((Date.now() - report.created) / (1000 * 60 * 60 * 24)) %>일전 제보</span>
                 </div>
             </div>
             <div class="subtitle is-6" id="contents">
@@ -67,9 +66,9 @@
                 </div>
                 <div class="level-right">
                     <a class="" style="color:black;">
-                     <!--   <span class="icon ">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </span>-->
+                        <!--   <span class="icon ">
+                               <i class="fas fa-ellipsis-v"></i>
+                           </span>-->
                     </a>
                 </div>
             </div>
@@ -79,8 +78,7 @@
 
                     </div>
                     <div class="level-right" id="person">
-                        <!--                        TODO delta date..-->
-                        <span class="subtitle is-6">2일전 제보</span>
+                        <span class="subtitle is-6"><%= Math.floor((Date.now() - comment.created) / (1000 * 60 * 60 * 24)) %>일전 제보</span>
                     </div>
                 </div>
                 <div class="subtitle is-6" id="contents" style="margin-bottom: 15px">

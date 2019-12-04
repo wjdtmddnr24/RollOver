@@ -59,7 +59,6 @@ location : {}
 }
  */
 function deleteComputer() {
-    //TODO 컴퓨터 지우기
     jQuery.ajax({
         url: '',
         type: 'POST',
@@ -114,7 +113,6 @@ function resizeComputer() {
 }
 
 function renameComputer() {
-    // TODO ajax 이름 바꾸기
     if (!curComputer.com || !curComputer.com._id) return;
     var text = prompt("변경할 이름을 입력하세요.", curComputer.children[1].text());
     if (text != null) {
@@ -144,7 +142,6 @@ function renameComputer() {
 
 function addComputer(computer) {
     if (computer == null) {
-        // TODO ajax로 컴퓨터 추가
         var name = prompt("컴퓨터의 이름을 입력해주세요");
         if (name.length === 0) return;
         jQuery.ajax({
@@ -235,7 +232,7 @@ function addComputer(computer) {
             // console.log(this.com._id);
             console.log('c', e);
             if (e.evt.button == 2) return;
-            window.location.href += `/${this.com._id}`;
+            window.location.href = `${window.location.origin}${window.location.pathname}/${this.com._id}`;
         });
         group.on('contextmenu', function (e) {
             console.log('cm', e);
@@ -254,7 +251,6 @@ function addComputer(computer) {
 
 function addComputers(computers) {
     if (computers == null) {
-        // TODO ajax로 컴퓨터 추가 2
         computers = [];
         var text = prompt("행 개수와 열 개수를 띄어쓰기로 구분해서 입력해주세요.", `1 1`);
         if (text && text.length > 0 && text.split(' ').length >= 2 && !isNaN(parseInt(text.split(' ')[0])) && !isNaN(parseInt(text.split(' ')[1]))) {
@@ -302,4 +298,35 @@ function getCom(id) {
             return group;
         }
     }
+}
+
+function filterComputersByTags() {
+    var filterTags = getFilterTags();
+    for (let i = 0; i < layer.children.length; i++) {
+        if (!layer.children[i].com) continue;
+        var hasProblem = false;
+        for (let j = 0; j < layer.children[i].com.reports.length; j++) {
+            if (hasProblem) break;
+            for (let k = 0; k < filterTags.length; k++) {
+                if (hasProblem) break;
+                console.log(layer.children[i].com.reports[j].tags, filterTags[k]);
+                if (layer.children[i].com.reports[j].status === 0 && layer.children[i].com.reports[j].tags.includes(filterTags[k])) {
+                    hasProblem = true;
+                }
+            }
+        }
+        console.log(i, hasProblem);
+
+        layer.children[i].children[0].attrs.fill = hasProblem ? '#ff3d00' : '#00c853';
+    }
+    layer.draw();
+}
+
+function getFilterTags() {
+    var ret = [];
+    var filters = $('#filter-tags > span.is-primary').toArray();
+    for (let i = 0; i < filters.length; i++) {
+        ret.push($(filters[i]).text());
+    }
+    return ret;
 }

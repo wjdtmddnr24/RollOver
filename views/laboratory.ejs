@@ -4,7 +4,44 @@
     <br>
     <h1 class="title is-2"><%= lab.name %></h1>
     <br>
-
+    <!-- <form method="get" action="" id="laboratory-form">
+         <div class="columns">
+             <div class="field column ">
+                 <div class="control">
+                     <input class="input is-large" type="text" name="query" placeholder="#고컴수 #데통네" autofocus>
+                 </div>
+             </div>
+             <div class="column is-1">
+                 <div class="control is-large ">
+                     <button class="button is-primary is-large" onclick="$('#laboratory-form').submit();">검색</button>
+                 </div>
+             </div>
+         </div>
+     </form>-->
+    <div class="columns" style="margin: 0;">
+        <%
+        var tags = [];
+        lab.computers.forEach((computer) => {
+            computer.reports.forEach((report) => {
+                report.tags.forEach((tag) => {
+                    if (!tags.includes(tag)) {
+                        tags.push(tag);
+                    }
+                });
+            });
+        });
+        tags.sort();
+        %>
+        <div class="tags" id="filter-tags">
+            <%
+            tags.forEach((tag) => { %>
+                <span style="cursor:pointer" class="tag is-primary subtitle is-6 filter-tag"><%= tag %></span>
+            <%
+            });
+            %>
+        </div>
+    </div>
+    <br>
     <div class="columns">
         <div class="column" id="seat-chart" style="min-height: 600px;"></div>
     </div>
@@ -18,6 +55,7 @@
 <script>
 
     $(document).ready(function () {
+        $('.filter-tag').click(toggleTag);
         /* $('#seat-chart').resize(function () {
              stage.width($('#seat-chart').width());
              stage.height($('#seat-chart').height());
@@ -30,12 +68,20 @@
             const com = lab.computers[i];
             console.log(com);
         %>
-        addComputer(JSON.parse('<%- JSON.stringify({
+        <%
+            com.reports.forEach((report) => {
+                report.content = '';
+                report.title = '';
+                report.comments = [];
+            });
+        %>
+        addComputer(JSON.parse(`<%- JSON.stringify({
             _id: com._id,
             name: com.name,
             location: com.location,
-            property: com.property
-        }) %>'));
+            property: com.property,
+            reports: com.reports
+        }) %>`));
         <%
         }
         %>
@@ -43,6 +89,20 @@
              addComputer({name: `${i}`, location: {X: i * 60, Y: 20, W: 50, H: 50}});
          }*/
         layer.draw();
+        filterComputersByTags();
+
     });
+
+    function toggleTag(e) {
+        var tagElement = $(e.target);
+        if (tagElement.hasClass('is-light')) {
+            tagElement.removeClass('is-light');
+            tagElement.addClass('is-primary');
+        } else {
+            tagElement.addClass('is-light');
+            tagElement.removeClass('is-primary');
+        }
+        filterComputersByTags();
+    }
 </script>
 <% include common/footer.ejs %>

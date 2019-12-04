@@ -10,7 +10,7 @@
                     <div class="field">
                         <label class="label">아이디</label>
                         <div class="control has-icons-left ">
-                            <input class="input " type="text" name="username" placeholder="Text input">
+                            <input class="input" id="login-id" type="text" name="username" placeholder="Text input">
                             <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
                     </span>
@@ -54,7 +54,7 @@
                             <div class="field">
                                 <label class="label">아이디</label>
                                 <div class="control has-icons-left ">
-                                    <input class="input" type="text" name="id" placeholder="Text input">
+                                    <input class="input" type="text" name="id" id="signup-id" placeholder="Text input">
                                     <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
                     </span>
@@ -331,8 +331,6 @@
             alert('패스워드가 유효하지 않습니다.');
             return;
         }
-        // TODO 유효한 내용인지 확인
-        // $('#signup-form').submit();
         jQuery.ajax({
             url: '/signup',
             type: 'POST',
@@ -344,6 +342,7 @@
                 console.log(result);
                 if (result.result === 'success') {
                     alert('회원가입을 완료했습니다.');
+                    LogIn($('#signup-id').val(), $('#signup-pw').val());
                 } else {
                     alert('error : ' + result.error);
                 }
@@ -351,7 +350,11 @@
         });
     }
 
-    function LogIn() {
+    function LogIn(id, pw) {
+        if (id && pw) {
+            $('#login-id').val(id);
+            $('#login-input').val(pw);
+        }
         $('#login-form').submit();
     }
 </script>

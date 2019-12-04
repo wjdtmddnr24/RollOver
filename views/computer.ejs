@@ -13,7 +13,7 @@
                     <%
                     lab.computers.sort(function (a, b) {
                         if (!isNaN(a.name) && !isNaN(b.name)) {
-                            return parseInt(a.name) < parseInt(b.name) ? -1 : parseInt(a.name) >parseInt(b.name)  ? 1 : 0;
+                            return parseInt(a.name) < parseInt(b.name) ? -1 : parseInt(a.name) > parseInt(b.name) ? 1 : 0;
                         }
                         return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
                     });
@@ -41,49 +41,18 @@
                     </div>
                 </div>
                 <br><br>
-                <% for(let i = 0; i < 0; i++) { %>
-                    <div class="level" style="margin-bottom: 14px;">
-                        <div class="level-left">
-                            <div class="level-item ">
-                                <span class=" tag is-danger title is-6" id="computer_status">실행 오류</span>
-                                <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;">Visual Studio 2015 실행이
-                                    안돼요ㅜㅜ</h3>
-                            </div>
-                        </div>
-                        <div class="level-right" id="person">
-                            <span class="subtitle is-6">wjdtmddnr24</span>
-                        </div>
-                    </div>
-                    <div class="subtitle is-6" id="contents">
-                        <p>실행하면 블루스크린 뜹니다ㅜㅜ(내용) 빨리 좀 고쳐달라...</p>
-                    </div>
-                    <div class="level">
-                        <div class="level-left">
-                            <div>
-                                <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#고컴수</div>
-                                <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#윈도우 프로그래밍
-                                </div>
-                                <div class="level-item tag is-light subtitle is-6" style="margin-bottom:0">#Visual
-                                    Studio 2015
-                                </div>
-                            </div>
-                        </div>
-                        <div class="level-right" id="time">
-                            <span class="level-item subtitle is-6">2일전 제보</span>
-                        </div>
-                    </div>
-                    <hr><br>
-                <% } %>
                 <% for(let i = 0; i < com.reports.length; i++) {
                     const report = com.reports[i];
-                    const link = `/${lab._id}/${com._id}/${report._id}`; %>
+                    const link = `/${lab._id}/${com._id}/${report._id}`;
+                    const deltaDate = Math.floor((Date.now() - report.created) / (1000 * 60 * 60 * 24));
+                %>
                 <a href="<%= link %>">
 
                     <div class="level" style="margin-bottom: 14px;">
                         <div class="level-left">
                             <div class="level-item ">
                             <span class="tag <%= report.status === 0 ? 'is-danger' : 'is-primary' %> title is-6"
-                                  id="computer_status"><%= report.status === 0 ? '실행 오류' : '오류 해결' %></span>
+                                  id="computer_status"><%= report.status === 0 ? '문제 발생' : '문제 해결' %></span>
                                 <h3 class="title is-4" id="title" style="margin: 0 0 0 14px;">
                                     <%= report.title %></h3>
                             </div>
@@ -110,8 +79,7 @@
                             </div>
                         </div>
                         <div class="level-right" id="time">
-                            <!-- TODO 날짜 delta구하기                       -->
-                            <span class="level-item subtitle is-6">2일전 제보</span>
+                            <span class="level-item subtitle is-6"><%= deltaDate %>일전 제보</span>
                         </div>
                     </div>
                 </a>

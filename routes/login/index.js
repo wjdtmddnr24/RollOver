@@ -7,7 +7,7 @@ var router = express.Router();
 router.post('/', passport.authenticate('local', {
     successReturnToOrRedirect: '/',
     failureFlash: true,
-    failureRedirect: '/' // TODO 재진입 // alert
+    failureRedirect: '/'
 }), function (req, res) {
 });
 
