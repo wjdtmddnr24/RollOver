@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var laboratory = require('../db/laboratory');
+var laboratory = require('../../db/laboratory');
 
 /* GET home page : 실습실 목록 */
 router.get('/', function (req, res, next) {
