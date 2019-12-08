@@ -12,6 +12,7 @@ var session = require('express-session');
 var User = require('./db/user');
 
 var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup');
@@ -81,6 +82,7 @@ app.use(passport.session());
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/signup', signupRouter);
+app.use('/api', apiRouter);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
