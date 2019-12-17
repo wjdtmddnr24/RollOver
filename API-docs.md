@@ -207,3 +207,43 @@ laboratory : `_id=:laboratory` 에 해당하는 실습실 가져오기
 
 - result : string, 성공할 경우 : "success", 실패할 경우 : "error"와 함께 error 파라미터 추가
 - error : string, 해당 실습실이 없는 경우 "no such labratory!", 해당 컴퓨터가 없는 경우 : "no such computer!", 해당 댓글이 없는 경우 : "no such report!" 
+
+### /api/signup, POST, 회원 가입
+
+#### Request Params
+
+- id : string, 계정 id
+- password : string, 계정 비밀번호
+- email : string, 계정 이메일
+- name : string, 계정 사용자 이름
+
+#### Response Params
+
+- result : string, 성공할 경우 : "success", 실패할 경우 : "error"
+- error : string, "사용자가 이미 있습니다."
+
+
+
+### /api/login, POST, 로그인
+
+#### Request Params
+
+- use : string, 계정 id
+- password : string, 계정 비밀번호
+
+#### Response Params
+
+- error : string
+
+
+
+### /api/logout, POST, 로그아웃
+
+#### Request Params
+
+없음
+
+#### Response Params
+
+없음
+
